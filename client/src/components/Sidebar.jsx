@@ -1,60 +1,59 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
-import { LogOut } from 'lucide-react';
+import { LogOut, LayoutDashboard, Box, Activity, Settings } from 'lucide-react';
 
 const Sidebar = () => {
-    const [user, setUser] = useState({ name: 'Guest', email: '' });
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-        if (userInfo) {
-            setUser(userInfo);
-        }
-    }, []);
+    const location = useLocation();
 
     const logout = () => {
         localStorage.removeItem('userInfo');
-        navigate('/login');
+        navigate('/');
     };
 
-    console.log("Sidebar User State:", user); // Debug Log
+    const isActive = (path) => location.pathname === path;
 
     return (
-        <aside className="w-64 min-h-screen border-r border-border bg-card hidden md:block relative">
-            <div className="p-6">
-                <h2 className="text-2xl font-bold tracking-tight text-primary">M / M</h2>
+        <aside className="w-16 min-h-screen border-r border-border bg-card hidden md:flex flex-col items-center py-6 z-40 fixed left-0 top-0 bottom-0 shadow-none">
+            <div className="mb-8">
+                <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center font-bold text-lg text-primary-foreground">M</div>
             </div>
-            <nav className="space-y-4 p-4">
-                <Link to="/" className="flex items-center space-x-2 text-foreground hover:bg-accent/50 p-2 rounded transition-colors bg-accent/20">
-                    <span>Dashboard</span>
+            <nav className="flex-1 w-full flex flex-col items-center space-y-4">
+                <Link
+                    to="/dashboard"
+                    className={`w-10 h-10 flex items-center justify-center rounded-sm transition-colors group relative ${isActive('/dashboard') ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted-foreground hover:text-foreground hover:bg-muted'}`}
+                    title="Dashboard"
+                >
+                    <LayoutDashboard size={20} />
                 </Link>
-                <Link to="/inventory" className="flex items-center space-x-2 text-muted-foreground hover:bg-accent/50 p-2 rounded transition-colors">
-                    <span>Inventory</span>
+                <Link
+                    to="/inventory"
+                    className={`w-10 h-10 flex items-center justify-center rounded-sm transition-colors group relative ${isActive('/inventory') ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted-foreground hover:text-foreground hover:bg-muted'}`}
+                    title="Inventory"
+                >
+                    <Box size={20} />
                 </Link>
-                <Link to="/production" className="flex items-center space-x-2 text-muted-foreground hover:bg-accent/50 p-2 rounded transition-colors">
-                    <span>Production</span>
+                <Link
+                    to="/production"
+                    className={`w-10 h-10 flex items-center justify-center rounded-sm transition-colors group relative ${isActive('/production') ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted-foreground hover:text-foreground hover:bg-muted'}`}
+                    title="Production"
+                >
+                    <Activity size={20} />
                 </Link>
-                <button onClick={logout} className="flex w-full items-center space-x-2 text-red-500 hover:bg-red-500/10 p-2 rounded transition-colors mt-8">
-                    <LogOut size={16} />
-                    <span>Logout</span>
-                </button>
+                {/* Added settings or extra link if needed, keeping minimal for now */}
             </nav>
-            {/* User Footer */}
-            <div className="absolute bottom-0 p-4 w-64 border-t border-border bg-card">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                        <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary">
-                            {((user && user.name) ? user.name : 'G').charAt(0).toUpperCase()}
-                        </div>
-                        <div className="overflow-hidden">
-                            <p className="text-sm font-medium truncate w-24">{user?.name || 'Guest'}</p>
-                            <p className="text-xs text-muted-foreground truncate w-24">{user?.email || 'Please Login'}</p>
-                        </div>
-                    </div>
+            <div className="mt-auto flex flex-col items-center space-y-4">
+                <div className="scale-75">
                     <ThemeToggle />
                 </div>
+                <button
+                    onClick={logout}
+                    className="w-10 h-10 flex items-center justify-center text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-sm transition-colors"
+                    title="Logout"
+                >
+                    <LogOut size={20} />
+                </button>
             </div>
         </aside>
     );

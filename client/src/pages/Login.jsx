@@ -31,7 +31,7 @@ const Login = () => {
             }
 
             localStorage.setItem('userInfo', JSON.stringify(data));
-            navigate('/');
+            navigate('/dashboard');
         } catch (err) {
             setError(err.message);
         }
