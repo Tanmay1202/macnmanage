@@ -33,7 +33,7 @@ const resourceSchema = mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['Available', 'Low Stock', 'Out of Stock', 'Maintenance'],
+        enum: ['Available', 'Low Stock', 'Out of Stock', 'Maintenance', 'Operational', 'Warning', 'Critical'],
         default: 'Available',
     },
     customFields: {

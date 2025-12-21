@@ -11,29 +11,29 @@ const BentoCard = ({ title, value, subtext, color = "text-foreground", colSpan =
     );
 };
 
-const BentoGrid = () => {
+const BentoGrid = ({ stats }) => {
     return (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <BentoCard
                 title="Total Resources"
-                value="1,234"
-                subtext="+4% from last month"
+                value={stats?.totalResources || 0}
+                subtext="Inventory Items"
             />
             <BentoCard
                 title="Low Stock Alerts"
-                value="12"
-                color="text-destructive"
-                subtext="Requires attention"
+                value={stats?.lowStock || 0}
+                color={stats?.lowStock > 0 ? "text-destructive" : "text-foreground"}
+                subtext={stats?.lowStock > 0 ? "Requires attention" : "All good"}
             />
             <BentoCard
                 title="Active Production"
-                value="5"
-                subtext="Efficient"
+                value={stats?.activeProduction || 0}
+                subtext="Operational Machines"
             />
             <BentoCard
                 title="System Status"
-                value="Healthy"
-                color="text-primary"
+                value={stats?.systemStatus || 'Nominal'}
+                color={stats?.systemStatus === 'Critical' ? 'text-destructive' : 'text-emerald-500'}
                 colSpan="col-span-1"
             />
         </div>

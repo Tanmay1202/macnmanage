@@ -25,6 +25,7 @@ app.get('/', (req, res) => {
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/resources', require('./routes/resourceRoutes'));
+app.use('/api/production', require('./routes/productionRoutes'));
 
 // Error Handler Middleware inside the server file for simplicity or imported
 app.use((err, req, res, next) => {
