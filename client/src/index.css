@@ -1,22 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
-    /* Default to dark mode values as requested "Dark-mode first" */
-    --background: 222 47% 11%;     /* Slate 950 #0f172a - keeping slightly lighter than pure black for base? No, req says "Near-black slate base". Slate 950 is 222 47% 11 in HSL approx? Actually Slate 950 is #020617 which is 222 47% 5% approx. Let's use Zinc 950 or Slate 950. */
-    /* Let's use strict Slate 950: #020617 -> HSL 222.2 84% 4.9% */
-    --background: 222.2 84% 4.9%; 
+    /* Deep Slate 950 Base #020617 */
+    --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 6.9%; /* Slightly lighter than background */
+    /* Slate 900 for Cards #0f172a */
+    --card: 222.2 47.4% 11.2%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222.2 84% 4.9%;
+    --popover: 222.2 47.4% 11.2%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 244.5 57.9% 50.6%; /* Indigo 600 #4f46e5 -> 244.5 57.9 50.6 */
+    /* Indigo 600 Primary #4f46e5 */
+    --primary: 244.5 57.9% 50.6%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 217.2 32.6% 17.5%;
@@ -35,17 +35,18 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 244.5 57.9% 50.6%;
 
-    --radius: 0.25rem; /* Reduced radius as per "No rounded-full elements", sharper look */
+    --radius: 0.375rem;
+    /* Slight increase to sm/md */
   }
 
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%; /* Base bg */
+    --card: 222.2 47.4% 11.2%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222.2 84% 4.9%;
+    --popover: 222.2 47.4% 11.2%;
     --popover-foreground: 210 40% 98%;
 
     --primary: 244.5 57.9% 50.6%;
@@ -68,11 +69,12 @@
     --ring: 244.5 57.9% 50.6%;
   }
 }
- 
+
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }

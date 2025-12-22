@@ -3,10 +3,10 @@ import React from 'react';
 // A generic card for the grid
 const BentoCard = ({ title, value, subtext, color = "text-foreground", colSpan = "col-span-1" }) => {
     return (
-        <div className={`p-6 bg-card border border-border rounded-lg hover:border-primary/50 transition-colors ${colSpan}`}>
-            <h3 className="text-muted-foreground text-sm font-medium">{title}</h3>
+        <div className={`p-6 bg-slate-900/40 backdrop-blur-sm border border-indigo-500/10 rounded-xl hover:border-indigo-500/30 transition-all group ${colSpan}`}>
+            <h3 className="text-slate-400 text-sm font-medium">{title}</h3>
             <p className={`text-2xl font-bold mt-2 ${color}`}>{value}</p>
-            {subtext && <p className="text-xs text-muted-foreground mt-1">{subtext}</p>}
+            {subtext && <p className="text-xs text-slate-500 mt-1">{subtext}</p>}
         </div>
     );
 };

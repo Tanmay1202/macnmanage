@@ -168,27 +168,28 @@ const Inventory = () => {
     }, []);
 
     return (
-        <div className="min-h-screen bg-background text-foreground flex font-sans">
+        <div className="min-h-screen text-white flex font-sans">
             <Sidebar />
 
-            <div className="flex-1 ml-16 flex">
-                {/* Left Filter Panel */}
-                <aside className="w-64 border-r border-border bg-card/30 p-6 hidden lg:block sticky top-0 h-screen overflow-y-auto">
-                    <div className="flex items-center gap-2 mb-8 text-primary">
+            <div className="flex-1 ml-24 mr-4 my-4 flex rounded-xl overflow-hidden border border-white/5 bg-slate-900/30 backdrop-blur-sm shadow-2xl relative">
+                {/* Left Filter Panel - Glass glass effect */}
+                <aside className="w-64 border-r border-indigo-500/10 bg-slate-900/50 p-6 hidden lg:block sticky top-0 h-full overflow-y-auto">
+                    <div className="flex items-center gap-2 mb-8 text-indigo-400">
                         <Filter size={16} />
-                        <span className="text-sm font-semibold tracking-wide uppercase">Filters</span>
+                        <span className="text-xs font-bold tracking-widest uppercase">Filters</span>
                     </div>
 
-                    <div className="space-y-6">
+                    <div className="space-y-8">
                         <div>
-                            <label className="text-xs font-medium text-muted-foreground uppercase mb-3 block">Category</label>
-                            <div className="space-y-2">
+                            <label className="text-xs font-semibold text-slate-500 uppercase mb-4 block tracking-wider">Category</label>
+                            <div className="space-y-1">
                                 {['All Resources', 'Raw Materials', 'Tools', 'Machines', 'Finished Goods'].map((cat, i) => (
                                     <div
                                         key={i}
                                         onClick={() => setFilterCategory(cat)}
-                                        className={`flex items-center gap-2 text-sm px-2 py-1.5 rounded-sm cursor-pointer transition-colors ${filterCategory === cat ? 'bg-primary/10 text-primary font-medium' : 'text-muted-foreground hover:text-foreground hover:bg-muted'}`}
+                                        className={`flex items-center gap-2 text-sm px-3 py-2 rounded-lg cursor-pointer transition-all duration-200 ${filterCategory === cat ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20 font-medium' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
                                     >
+                                        <div className={`w-1.5 h-1.5 rounded-full ${filterCategory === cat ? 'bg-white' : 'bg-transparent'}`}></div>
                                         {cat}
                                     </div>
                                 ))}
@@ -196,21 +197,21 @@ const Inventory = () => {
                         </div>
 
                         <div>
-                            <label className="text-xs font-medium text-muted-foreground uppercase mb-3 block">Status</label>
-                            <div className="space-y-2">
+                            <label className="text-xs font-semibold text-slate-500 uppercase mb-4 block tracking-wider">Status</label>
+                            <div className="space-y-1">
                                 {['All', 'Available', 'In Use', 'Low Stock', 'Maintenance', 'Operational', 'Warning', 'Critical'].map((status, i) => (
                                     <div
                                         key={i}
                                         onClick={() => setFilterStatus(status)}
-                                        className={`flex items-center gap-2 px-2 py-1 cursor-pointer rounded-sm ${filterStatus === status ? 'bg-accent text-accent-foreground' : 'hover:bg-muted'}`}
+                                        className={`flex items-center gap-2 px-3 py-2 cursor-pointer rounded-lg transition-all duration-200 ${filterStatus === status ? 'bg-white/10 text-white' : 'text-slate-400 hover:bg-white/5'}`}
                                     >
                                         {status !== 'All' && (
-                                            <div className={`w-3 h-3 border rounded-sm flex items-center justify-center ${status === 'Available' || status === 'Operational' ? 'bg-emerald-500/20 border-emerald-500/50' :
-                                                status === 'Low Stock' || status === 'Warning' ? 'bg-amber-500/20 border-amber-500/50' :
-                                                    'bg-destructive/20 border-destructive/50'
+                                            <div className={`w-2 h-2 rounded-full shadow-[0_0_8px_inset] ${status === 'Available' || status === 'Operational' ? 'bg-emerald-500 shadow-emerald-500/50' :
+                                                status === 'Low Stock' || status === 'Warning' ? 'bg-amber-500 shadow-amber-500/50' :
+                                                    'bg-red-500 shadow-red-500/50'
                                                 }`}></div>
                                         )}
-                                        <span className={`text-sm ${filterStatus === status ? 'text-foreground' : 'text-muted-foreground'}`}>{status}</span>
+                                        <span className={`text-sm ${filterStatus === status ? 'text-white' : 'text-slate-400'}`}>{status}</span>
                                     </div>
                                 ))}
                             </div>
@@ -219,17 +220,21 @@ const Inventory = () => {
                 </aside>
 
                 {/* Main Content */}
-                <main className="flex-1 flex flex-col min-w-0 bg-background">
+                <main className="flex-1 flex flex-col min-w-0 bg-transparent relative">
                     {/* Header */}
-                    <header className="h-16 border-b border-border flex items-center justify-between px-8 bg-card/20 sticky top-0 backdrop-blur-sm z-20">
+                    <header className="h-16 border-b border-indigo-500/10 flex items-center justify-between px-8 bg-[#020617]/60 backdrop-blur-md sticky top-0 z-20">
                         <div className="flex items-center gap-4">
-                            <h1 className="text-xl font-bold tracking-tight">Inventory</h1>
-                            <span className="px-2 py-0.5 rounded-sm bg-muted text-muted-foreground text-xs font-mono">{filteredResources.length} ITEMS</span>
+                            <h1 className="text-xl font-bold tracking-tight text-white">Inventory</h1>
+                            <span className="px-2.5 py-1 rounded-md bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-xs font-mono font-medium">{filteredResources.length} ITEMS</span>
                         </div>
-                        <div className="flex items-center gap-3">
-                            <div className="relative">
-                                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                                <input id="inventory-search" className="h-9 pl-9 pr-4 w-64 rounded-sm border border-border bg-background focus:ring-1 focus:ring-primary focus:border-primary text-sm transition-all" placeholder="Search... (Cmd+K)" />
+                        <div className="flex items-center gap-4">
+                            <div className="relative group">
+                                <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-500 group-focus-within:text-indigo-400 transition-colors" />
+                                <input
+                                    id="inventory-search"
+                                    className="h-10 pl-10 pr-4 w-64 rounded-lg border border-white/5 bg-slate-800/50 focus:bg-slate-800 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 text-sm placeholder:text-slate-600 text-slate-200 transition-all outline-none"
+                                    placeholder="Search... (Cmd+K)"
+                                />
                             </div>
                             <button
                                 onClick={() => {
@@ -237,9 +242,9 @@ const Inventory = () => {
                                     setFormData({ name: '', type: 'Raw Material', quantity: 0, unit: 'kg', pricePerUnit: 0, location: '', status: 'Available' });
                                     setShowDrawer(true);
                                 }}
-                                className="h-9 px-4 bg-primary text-primary-foreground text-sm font-medium rounded-sm hover:bg-primary/90 flex items-center gap-2"
+                                className="h-10 px-5 bg-indigo-600 text-white text-sm font-semibold rounded-lg hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-600/20 hover:shadow-indigo-600/40 flex items-center gap-2 transform active:scale-95"
                             >
-                                <Plus size={16} />
+                                <Plus size={18} />
                                 Add Item
                             </button>
                         </div>
@@ -247,51 +252,51 @@ const Inventory = () => {
 
                     {/* Data Table */}
                     <div className="flex-1 p-8 overflow-auto">
-                        <div className="border border-border rounded-sm overflow-hidden">
+                        <div className="border border-white/5 rounded-xl overflow-hidden bg-white/[0.02]">
                             <table className="w-full text-sm text-left">
-                                <thead className="bg-muted/30 text-muted-foreground font-medium uppercase text-xs tracking-wider">
+                                <thead className="bg-white/[0.02] text-slate-400 font-semibold uppercase text-[11px] tracking-wider">
                                     <tr>
-                                        <th className="px-6 py-4 border-b border-border font-medium">Name</th>
-                                        <th className="px-6 py-4 border-b border-border font-medium">Type</th>
-                                        <th className="px-6 py-4 border-b border-border font-medium">Status</th>
-                                        <th className="px-6 py-4 border-b border-border font-medium text-right">Qty</th>
-                                        <th className="px-6 py-4 border-b border-border font-medium text-right">Value</th>
-                                        <th className="px-6 py-4 border-b border-border font-medium text-right">Actions</th>
+                                        <th className="px-6 py-4 font-medium">Name</th>
+                                        <th className="px-6 py-4 font-medium">Type</th>
+                                        <th className="px-6 py-4 font-medium">Status</th>
+                                        <th className="px-6 py-4 font-medium text-right">Qty</th>
+                                        <th className="px-6 py-4 font-medium text-right">Value</th>
+                                        <th className="px-6 py-4 font-medium text-right">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-border bg-card/20">
+                                <tbody className="divide-y divide-white/5">
                                     {isLoading ? (
-                                        <tr><td colSpan="6" className="p-8 text-center text-muted-foreground">Loading...</td></tr>
+                                        <tr><td colSpan="6" className="p-8 text-center text-slate-500">Loading...</td></tr>
                                     ) : filteredResources.length === 0 ? (
-                                        <tr><td colSpan="6" className="p-8 text-center text-muted-foreground">No resources found matching filters.</td></tr>
+                                        <tr><td colSpan="6" className="p-8 text-center text-slate-500">No resources found matching filters.</td></tr>
                                     ) : (
                                         filteredResources.map((item) => (
-                                            <tr key={item._id} className="group hover:bg-muted/30 transition-colors">
+                                            <tr key={item._id} className="group hover:bg-white/[0.03] transition-colors">
                                                 <td className="px-6 py-4 flex items-center gap-3">
-                                                    <div className="w-8 h-8 rounded-sm bg-muted flex items-center justify-center text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
-                                                        <Package size={16} />
+                                                    <div className="w-9 h-9 rounded-lg bg-slate-800/50 border border-white/5 flex items-center justify-center text-slate-400 group-hover:text-indigo-400 group-hover:border-indigo-500/30 transition-all">
+                                                        <Package size={18} />
                                                     </div>
-                                                    <span className="font-medium text-foreground">{item.name}</span>
+                                                    <span className="font-medium text-slate-200 group-hover:text-white transition-colors">{item.name}</span>
                                                 </td>
-                                                <td className="px-6 py-4 text-muted-foreground">{item.type}</td>
+                                                <td className="px-6 py-4 text-slate-400">{item.type}</td>
                                                 <td className="px-6 py-4">
-                                                    <span className={`inline-flex items-center px-2 py-1 rounded-sm text-xs font-medium border ${item.status === 'Available' || item.status === 'Operational' ? 'border-emerald-900 bg-emerald-950/30 text-emerald-500' :
-                                                        item.status === 'Low Stock' || item.status === 'Warning' ? 'border-amber-900 bg-amber-950/30 text-amber-500' :
-                                                            'border-red-900 bg-destructive/10 text-destructive'
+                                                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${item.status === 'Available' || item.status === 'Operational' ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-400' :
+                                                        item.status === 'Low Stock' || item.status === 'Warning' ? 'border-amber-500/20 bg-amber-500/10 text-amber-400' :
+                                                            'border-red-500/20 bg-red-500/10 text-red-400'
                                                         }`}>
                                                         {item.status}
                                                     </span>
                                                 </td>
-                                                <td className="px-6 py-4 text-right font-mono text-foreground">{item.quantity} <span className="text-muted-foreground text-xs">{item.unit}</span></td>
-                                                <td className="px-6 py-4 text-right font-mono text-muted-foreground">${item.pricePerUnit}</td>
+                                                <td className="px-6 py-4 text-right font-mono text-slate-300">{item.quantity} <span className="text-slate-600 text-xs ml-0.5">{item.unit}</span></td>
+                                                <td className="px-6 py-4 text-right font-mono text-slate-400">${item.pricePerUnit}</td>
                                                 <td className="px-6 py-4 text-right">
-                                                    <div className="flex items-center justify-end gap-2">
-                                                        <button onClick={() => handleEdit(item)} className="text-muted-foreground hover:text-primary transition-colors">
-                                                            <div className="text-xs font-medium uppercase tracking-wide">Edit</div>
+                                                    <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                        <button onClick={() => handleEdit(item)} className="text-slate-400 hover:text-indigo-400 transition-colors transform hover:scale-110">
+                                                            <div className="text-xs font-bold uppercase tracking-wide">Edit</div>
                                                         </button>
-                                                        <span className="text-border">|</span>
-                                                        <button onClick={() => handleDelete(item._id)} className="text-muted-foreground hover:text-destructive transition-colors">
-                                                            <div className="text-xs font-medium uppercase tracking-wide">Delete</div>
+                                                        <span className="text-slate-700">|</span>
+                                                        <button onClick={() => handleDelete(item._id)} className="text-slate-400 hover:text-red-400 transition-colors transform hover:scale-110">
+                                                            <div className="text-xs font-bold uppercase tracking-wide">Delete</div>
                                                         </button>
                                                     </div>
                                                 </td>
@@ -306,62 +311,74 @@ const Inventory = () => {
             </div>
 
             {/* Slide-in Drawer */}
-            <div className={`fixed inset-y-0 right-0 w-96 bg-card border-l border-border shadow-2xl transform transition-transform duration-300 ease-in-out z-50 ${showDrawer ? 'translate-x-0' : 'translate-x-full'}`}>
+            <div className={`fixed inset-y-0 right-0 w-[28rem] bg-[#020617]/95 border-l border-white/10 shadow-2xl backdrop-blur-xl transform transition-transform duration-300 ease-out z-50 ${showDrawer ? 'translate-x-0' : 'translate-x-full'}`}>
                 <div className="h-full flex flex-col">
-                    <div className="p-6 border-b border-border flex items-center justify-between">
-                        <h2 className="text-lg font-bold">{editingId ? 'Edit Resource' : 'New Resource'}</h2>
-                        <button onClick={() => setShowDrawer(false)} className="text-muted-foreground hover:text-foreground">
+                    <div className="p-8 border-b border-white/10 flex items-center justify-between bg-white/[0.02]">
+                        <div>
+                            <h2 className="text-xl font-bold text-white">{editingId ? 'Edit Resource' : 'New Resource'}</h2>
+                            <p className="text-slate-400 text-sm mt-1">Fill in the details below</p>
+                        </div>
+                        <button onClick={() => setShowDrawer(false)} className="text-slate-500 hover:text-white transition-colors bg-white/5 p-2 rounded-lg hover:bg-white/10">
                             <X size={20} />
                         </button>
                     </div>
-                    <form onSubmit={onSubmit} className="flex-1 overflow-y-auto p-6 space-y-6">
-                        <div className="space-y-4">
+                    <form onSubmit={onSubmit} className="flex-1 overflow-y-auto p-8 space-y-8">
+                        <div className="space-y-6">
                             <div className="space-y-2">
-                                <label className="text-xs font-medium uppercase text-muted-foreground">Name</label>
-                                <input name="name" value={formData.name} onChange={onChange} className="flex h-10 w-full rounded-sm border border-input bg-background/50 px-3 py-2 text-sm focus:ring-1 focus:ring-primary transition-all" placeholder="Resource Name" required />
+                                <label className="text-xs font-bold uppercase text-slate-500 tracking-wider">Name</label>
+                                <input name="name" value={formData.name} onChange={onChange} className="flex h-11 w-full rounded-lg border border-white/10 bg-black/20 px-4 text-sm text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all outline-none placeholder:text-slate-700" placeholder="Resource Name" required />
                             </div>
                             <div className="space-y-2">
-                                <label className="text-xs font-medium uppercase text-muted-foreground">Type</label>
-                                <select name="type" value={formData.type} onChange={onChange} className="flex h-10 w-full rounded-sm border border-input bg-background/50 px-3 py-2 text-sm focus:ring-1 focus:ring-primary transition-all">
-                                    <option>Raw Material</option>
-                                    <option>Machine</option>
-                                    <option>Tool</option>
-                                    <option>Finished Good</option>
-                                </select>
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-xs font-medium uppercase text-muted-foreground">Status</label>
-                                <select name="status" value={formData.status} onChange={onChange} className="flex h-10 w-full rounded-sm border border-input bg-background/50 px-3 py-2 text-sm focus:ring-1 focus:ring-primary transition-all">
-                                    <option>Available</option>
-                                    <option>In Use</option>
-                                    <option>Low Stock</option>
-                                    <option>Maintenance</option>
-                                    <option>Operational</option>
-                                    <option>Warning</option>
-                                    <option>Critical</option>
-                                </select>
-                            </div>
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="space-y-2">
-                                    <label className="text-xs font-medium uppercase text-muted-foreground">Quantity</label>
-                                    <input type="number" name="quantity" value={formData.quantity} onChange={onChange} className="flex h-10 w-full rounded-sm border border-input bg-background/50 px-3 py-2 text-sm focus:ring-1 focus:ring-primary transition-all" required />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-xs font-medium uppercase text-muted-foreground">Unit</label>
-                                    <input name="unit" value={formData.unit} onChange={onChange} className="flex h-10 w-full rounded-sm border border-input bg-background/50 px-3 py-2 text-sm focus:ring-1 focus:ring-primary transition-all" placeholder="kg" required />
+                                <label className="text-xs font-bold uppercase text-slate-500 tracking-wider">Type</label>
+                                <div className="relative">
+                                    <select name="type" value={formData.type} onChange={onChange} className="flex h-11 w-full rounded-lg border border-white/10 bg-black/20 px-4 text-sm text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all outline-none appearance-none cursor-pointer">
+                                        <option className="bg-slate-900">Raw Material</option>
+                                        <option className="bg-slate-900">Machine</option>
+                                        <option className="bg-slate-900">Tool</option>
+                                        <option className="bg-slate-900">Finished Good</option>
+                                    </select>
+                                    <ChevronRight className="absolute right-4 top-3.5 h-4 w-4 text-slate-500 rotate-90 pointer-events-none" />
                                 </div>
                             </div>
                             <div className="space-y-2">
-                                <label className="text-xs font-medium uppercase text-muted-foreground">Price/Unit</label>
-                                <input type="number" name="pricePerUnit" value={formData.pricePerUnit} onChange={onChange} className="flex h-10 w-full rounded-sm border border-input bg-background/50 px-3 py-2 text-sm focus:ring-1 focus:ring-primary transition-all" required />
+                                <label className="text-xs font-bold uppercase text-slate-500 tracking-wider">Status</label>
+                                <div className="relative">
+                                    <select name="status" value={formData.status} onChange={onChange} className="flex h-11 w-full rounded-lg border border-white/10 bg-black/20 px-4 text-sm text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all outline-none appearance-none cursor-pointer">
+                                        <option className="bg-slate-900">Available</option>
+                                        <option className="bg-slate-900">In Use</option>
+                                        <option className="bg-slate-900">Low Stock</option>
+                                        <option className="bg-slate-900">Maintenance</option>
+                                        <option className="bg-slate-900">Operational</option>
+                                        <option className="bg-slate-900">Warning</option>
+                                        <option className="bg-slate-900">Critical</option>
+                                    </select>
+                                    <ChevronRight className="absolute right-4 top-3.5 h-4 w-4 text-slate-500 rotate-90 pointer-events-none" />
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-2 gap-6">
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold uppercase text-slate-500 tracking-wider">Quantity</label>
+                                    <input type="number" name="quantity" value={formData.quantity} onChange={onChange} className="flex h-11 w-full rounded-lg border border-white/10 bg-black/20 px-4 text-sm text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all outline-none placeholder:text-slate-700" required />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold uppercase text-slate-500 tracking-wider">Unit</label>
+                                    <input name="unit" value={formData.unit} onChange={onChange} className="flex h-11 w-full rounded-lg border border-white/10 bg-black/20 px-4 text-sm text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all outline-none placeholder:text-slate-700" placeholder="kg" required />
+                                </div>
                             </div>
                             <div className="space-y-2">
-                                <label className="text-xs font-medium uppercase text-muted-foreground">Location</label>
-                                <input name="location" value={formData.location} onChange={onChange} className="flex h-10 w-full rounded-sm border border-input bg-background/50 px-3 py-2 text-sm focus:ring-1 focus:ring-primary transition-all" placeholder="Warehouse A" />
+                                <label className="text-xs font-bold uppercase text-slate-500 tracking-wider">Price/Unit</label>
+                                <div className="relative">
+                                    <span className="absolute left-4 top-3.5 text-slate-500 text-sm">$</span>
+                                    <input type="number" name="pricePerUnit" value={formData.pricePerUnit} onChange={onChange} className="flex h-11 w-full rounded-lg border border-white/10 bg-black/20 pl-8 pr-4 text-sm text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all outline-none placeholder:text-slate-700" required />
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-xs font-bold uppercase text-slate-500 tracking-wider">Location</label>
+                                <input name="location" value={formData.location} onChange={onChange} className="flex h-11 w-full rounded-lg border border-white/10 bg-black/20 px-4 text-sm text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all outline-none placeholder:text-slate-700" placeholder="Warehouse A" />
                             </div>
                         </div>
-                        <div className="pt-4">
-                            <button type="submit" className="w-full py-2 bg-primary text-primary-foreground font-medium rounded-sm hover:bg-primary/90 transition-colors">
+                        <div className="pt-6 border-t border-white/10">
+                            <button type="submit" className="w-full h-11 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg transition-all shadow-lg shadow-indigo-600/20 hover:shadow-indigo-600/40 flex items-center justify-center gap-2">
                                 {editingId ? 'Update Resource' : 'Create Resource'}
                             </button>
                         </div>
@@ -371,7 +388,7 @@ const Inventory = () => {
 
             {/* Drawer Backdrop */}
             {showDrawer && (
-                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40" onClick={() => setShowDrawer(false)}></div>
+                <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 transition-opacity" onClick={() => setShowDrawer(false)}></div>
             )}
         </div>
     );
