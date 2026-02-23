@@ -32,7 +32,7 @@ A production-grade, full-stack application for managing inventory, tracking prod
 
 1.  **Clone the repository**
     ```bash
-    git clone https://github.com/yourusername/macnmanage.git
+    git clone https://github.com/Tanmay1202/macnmanage.git
     cd macnmanage
     ```
 
