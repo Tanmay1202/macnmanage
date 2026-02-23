@@ -5,7 +5,6 @@ const ThemeToggle = () => {
     const [theme, setTheme] = useState('dark');
 
     useEffect(() => {
-        // Check local storage or default to dark
         const storedTheme = localStorage.getItem('theme');
         if (storedTheme) {
             setTheme(storedTheme);
@@ -19,21 +18,21 @@ const ThemeToggle = () => {
         const newTheme = theme === 'dark' ? 'light' : 'dark';
         setTheme(newTheme);
         localStorage.setItem('theme', newTheme);
-
-        if (newTheme === 'dark') {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
+        document.documentElement.classList.toggle('dark', newTheme === 'dark');
     };
 
     return (
         <button
             onClick={toggleTheme}
-            className="p-2 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
+            className="w-10 h-10 flex items-center justify-center rounded-xl text-slate-500 hover:text-slate-200 hover:bg-white/[0.06] transition-all duration-200 cursor-pointer"
             title="Toggle Theme"
         >
-            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            <span
+                className="transition-transform duration-300"
+                style={{ transform: theme === 'dark' ? 'rotate(0deg)' : 'rotate(180deg)' }}
+            >
+                {theme === 'dark' ? <Sun size={18} strokeWidth={1.7} /> : <Moon size={18} strokeWidth={1.7} />}
+            </span>
         </button>
     );
 };
