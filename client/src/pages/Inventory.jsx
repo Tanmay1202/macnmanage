@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
-import { Plus, Package, Search, Filter, X, ChevronRight, MoreHorizontal, Trash2, Edit3, Briefcase, Box, Settings2 } from 'lucide-react';
+import { Plus, Package, Search, Filter, X, ChevronRight, MoreHorizontal, Trash2, Edit3, Briefcase, Box, Settings2, LayoutGrid } from 'lucide-react';
 import { useToast } from '../context/ToastContext';
 
 const Inventory = () => {

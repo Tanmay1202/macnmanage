@@ -1,0 +1,14 @@
+services:
+  frontend:
+    image: tanmaybenot/macnmanage-frontend:v1
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+  backend:
+    image: tanmaybenot/macnmanage-backend:v1
+    env_file:
+      - ./server/.env
+    ports:
+      - "5000:5000"
