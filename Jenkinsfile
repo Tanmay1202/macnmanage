@@ -56,12 +56,13 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh """
-                sed -i 's|IMAGE_TAG|${BUILD_NUMBER}|g' k8s/frontend-deployment.yaml
-                sed -i 's|IMAGE_TAG|${BUILD_NUMBER}|g' k8s/backend-deployment.yaml
+                sh "sed -i 's|IMAGE_TAG|${BUILD_NUMBER}|g' k8s/frontend-deployment.yaml"
+                sh "sed -i 's|IMAGE_TAG|${BUILD_NUMBER}|g' k8s/backend-deployment.yaml"
 
-                kubectl apply -f k8s/
-                """
+                sh 'kubectl apply -f k8s/'
+
+                sh 'kubectl rollout restart deployment frontend-deployment'
+                sh 'kubectl rollout restart deployment backend-deployment'
             }
         }
     }
