@@ -17,13 +17,13 @@ pipeline {
 
         stage('Build Frontend Image') {
             steps {
-                sh 'docker build -t $FRONTEND_IMAGE ./client'
+                sh 'docker build --provenance=false -t $FRONTEND_IMAGE ./client'
             }
         }
 
         stage('Build Backend Image') {
             steps {
-                sh 'docker build -t $BACKEND_IMAGE ./server'
+                sh 'docker build --provenance=false -t $BACKEND_IMAGE ./server'
             }
         }
 
