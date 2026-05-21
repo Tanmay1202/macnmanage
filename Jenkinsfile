@@ -15,6 +15,26 @@ pipeline {
             }
         }
 
+        stage('SonarQube Analysis') {
+        environment {
+            SONAR_TOKEN = credentials('sonar-token')
+        }
+
+        steps {
+            script {
+                def scannerHome = tool 'sonar-scanner'
+
+                sh """
+                ${scannerHome}/bin/sonar-scanner \
+                -Dsonar.projectKey=macnmanage \
+                -Dsonar.sources=. \
+                -Dsonar.host.url=http://host.docker.internal:9000 \
+                -Dsonar.token=$SONAR_TOKEN
+                """
+            }
+        }
+    }
+
         stage('Build Frontend Image') {
             steps {
                 sh 'docker build --provenance=false -t $FRONTEND_IMAGE ./client'
