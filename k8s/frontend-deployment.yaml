@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: tanmaybenot/macnmanage-frontend:IMAGE_TAG
+          image: tanmaybenot/macnmanage-frontend:v9
 
           ports:
             - containerPort: 80
